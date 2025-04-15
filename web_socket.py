@@ -88,7 +88,7 @@ def web_socket():
         prev_data = get_redis_hash(segment, redis_connection)
         
         if prev_data.get("OI") == None:
-            prev_data = 0
+            prev_oi = 0
         else:
             prev_oi = float(prev_data.get("OI"))
         open_interest = {

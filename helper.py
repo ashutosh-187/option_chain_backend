@@ -94,16 +94,19 @@ def update_call_in_df(
     
     market_data = get_redis_hash(f"{segment_id}_{instrument_id}", redis_connection)
     instrument_ltp = market_data.get("last_traded_price")
-    interest_rate = 6
+    interest_rate = 6  
     now = datetime.now()
     contract_expiry = datetime.strptime(contract_expiry_str, "%Y-%m-%dT%H:%M:%S")
+    
     time_diff = contract_expiry - now
     delta_expiry = time_diff.days + (time_diff.seconds / (24 * 3600))
-    print(f"Days to expiry: {delta_expiry:.3f}")
+    
     if delta_expiry <= 0:
         raise ValueError("Contract expiry must be a future date. The provided expiry date is not valid.")
+    
     temp = mb.BS([index_ltp, strike, interest_rate, delta_expiry], callPrice=instrument_ltp)
     option_volatility = temp.impliedVolatility
+
     greeks_calc = mb.BS([index_ltp, strike, interest_rate, delta_expiry], volatility=option_volatility)    
     return {
         "instrument_ltp": instrument_ltp,
@@ -134,16 +137,20 @@ def update_put_in_df(
     market_data = get_redis_hash(f"{segment_id}_{instrument_id}", redis_connection)
     instrument_ltp = market_data.get("last_traded_price")
     interest_rate = 6
+    
     now = datetime.now()
     contract_expiry = datetime.strptime(contract_expiry_str, "%Y-%m-%dT%H:%M:%S")
+    
     time_diff = contract_expiry - now
     delta_expiry = time_diff.days + (time_diff.seconds / (24 * 3600))
-    print(f"Days to expiry: {delta_expiry:.3f}")
     if delta_expiry <= 0:
         raise ValueError("Contract expiry must be a future date. The provided expiry date is not valid.")
-    temp = mb.BS([index_ltp, strike, interest_rate, delta_expiry], callPrice=instrument_ltp)
+    
+    temp = mb.BS([index_ltp, strike, interest_rate, delta_expiry], putPrice=instrument_ltp)
     option_volatility = temp.impliedVolatility
+
     greeks_calc = mb.BS([index_ltp, strike, interest_rate, delta_expiry], volatility=option_volatility)    
+
     return {
         "instrument_ltp": instrument_ltp,
         "bid_price": market_data.get("bid_price"),
