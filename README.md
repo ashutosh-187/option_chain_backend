@@ -19,7 +19,7 @@ This project is a backend service for handling real-time option chain data. It i
 
 1. Clone the repository:
     ```bash
-    git clone <https://github.com/ashutosh-187/option_chain_backend.git>
+    git clone https://github.com/ashutosh-187/option_chain_backend.git
     cd option_chain_backend
     ```
 
@@ -63,6 +63,6 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 - [Pandas](https://pandas.pydata.org/)
 - [NumPy](https://numpy.org/)
 - [Redis](https://redis.io/)
-- [XTS Market Data API](https://www.xtsmarkets.com/)
+- [XTS Market Data API](https://symphonyfintech.com/xts-market-data-front-end-api-v2/)
 
 Feel free to contribute to this project by submitting issues or pull requests.
