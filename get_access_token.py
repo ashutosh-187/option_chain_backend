@@ -23,6 +23,7 @@ def generate_access_token():
     with open("access_token.json", "w") as token_file:
         json.dump({"access_token": access_token}, token_file)
     print("Access token generated :)")
+    print(access_token)
     return access_token
 
 def load_access_token():

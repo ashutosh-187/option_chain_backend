@@ -19,7 +19,20 @@ def subscribe_instruments(subscription_list):
     }
     subscription_url = os.getenv("xts_url")+"/instruments/subscription"
     response = requests.post(subscription_url, json=body, headers=headers)
-    print(response.text)
+    return response.text
+
+def subscribe_for_oi(subscription_list):
+    access_token = load_access_token()
+    body = {
+        "instruments": subscription_list,
+        "xtsMessageCode": 1510
+    }
+    headers = {
+            "Content-Type": "application/json",
+            "Authorization": access_token 
+    }
+    subscription_url = os.getenv("xts_url")+"/instruments/subscription"
+    response = requests.post(subscription_url, json=body, headers=headers)
     return response.text
 
 if __name__ == "__main__":

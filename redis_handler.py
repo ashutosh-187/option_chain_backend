@@ -13,12 +13,12 @@ def connect_with_redis_server():
         print(":( failed to connected with redis server.")
         return None
 
-def redis_push(key, value, redis_server):
-    redis_server.set(str(key), str(value))
+def set_redis_hash(key, values, redis_server):
+    redis_server.hset(str(key), mapping=values)
 
-def redis_get(key, redis_server):
-    value = redis_server.get(key)
-    return value
+def get_redis_hash(key, redis_server):
+    return redis_server.hgetall(str(key))
+
 
 def disconnect_from_redis_server(redis_server):
     if redis_server:
@@ -27,4 +27,4 @@ def disconnect_from_redis_server(redis_server):
 
 if __name__ == "__main__":
     redis_server = connect_with_redis_server()
-    print(redis_get("51_452465", redis_server))
+    print(get_redis_hash("1_26000", redis_server).get("segment_id"))
